@@ -1,0 +1,26 @@
+### PATIENT 1
+
+library(immunarch)  # Load the package into R
+immdata <- repLoad("/corgi/martin/R/patient1/")
+
+# Number of unique clonotypes
+exp_vol <- repExplore(immdata$data, .method = "volume")
+
+p1 <- vis(exp_vol, .title = "")
+ggsave(filename = "FIGURE_clonotype_p1.png", plot = p1, width = 4.8, height = 4.5, dpi = 600)
+
+# Clonotype abundancy
+imm_hom <- repClonality(immdata$data,
+  .method = "homeo",
+  .clone.types = c(Small = .0001, Medium = .001, Large = .01, Hyperexpanded = 1)
+)
+
+p2 <- vis(imm_hom)
+ggsave(filename = "FIGURE_abundancy_p1.png", plot = p2, width = 6, height = 5, dpi = 600)
+
+# Calculating the diversity index D50
+div_d50 <- repDiversity(immdata$data, "d50")
+
+p3 <- vis(div_d50)
+ggsave(filename = "FIGURE_div50_p1.png", plot = p3, width = 4.8, height = 4.5, dpi = 600)
+
