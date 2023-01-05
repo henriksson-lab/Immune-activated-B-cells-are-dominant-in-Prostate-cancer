@@ -3,6 +3,7 @@
 # Load the package and data
 library(immunarch)  
 
+immdata_all <- repLoad("/corgi/martin/BCR_Viqar/BCR_v1/mixcr_outputdata/")
 immdata_p1 <- repLoad("/corgi/martin/R/patient1/")
 immdata_p2 <- repLoad("/corgi/martin/R/patient2/")
 immdata_p3 <- repLoad("/corgi/martin/R/patient3/")
@@ -59,3 +60,7 @@ ggsave(filename = "FIGURE_div50_p2.png", plot = p8, width = 4.8, height = 4.5, d
 
 p9 <- vis(div_d50_3)
 ggsave(filename = "FIGURE_div50_p3.png", plot = p9, width = 4.8, height = 4.5, dpi = 600)
+
+# generating Table S2 (public repertoire table using CDR3 aminoacid sequences and V alleles from merged from all three patients)
+pr_aav <- pubRep(immdata_all$data, "aa+v", .verbose = F)
+write.table(pr_aav, file="/corgi/martin/R/pr_aav.txt")
